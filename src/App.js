@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useMemo, useState } from "react";
+import { Route, Routes, useParams, Link } from "react-router-dom";
+import SearchBox from "./SearchBox";
+import PokemonList from "./PokemonList";
+import Pokemon from "./Pokemon";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [pokemon, setPokemon] = useState([]);
+    const [search, setSearch] = useState("");
+
+    useEffect(() => {
+        fetch("./pokemon.json")
+            .then((res) => res.json())
+            .then((data) => setPokemon(data));
+    }, []);
+
+    const filterPokemon = useMemo(
+        () =>
+            [...pokemon]
+                .filter((p) =>
+                    p.name.toLowerCase().includes(search.toLowerCase())
+                )
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .slice(0, 10),
+        [search, pokemon]
+    );
+
+    return (
+        <div className="App">
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <h1>Pokemon</h1>
+                            <SearchBox
+                                search={search}
+                                onChangeHandle={setSearch}
+                            />
+                            <PokemonList pokemon={filterPokemon} />
+                        </>
+                    }
+                />
+                <Route
+                    path="pokemon/:id"
+                    element={<Pokemon pokemon={pokemon} />}
+                />
+                <Route
+                    path="*"
+                    element={
+                        <>
+                            <h1>No Pokemon Found</h1>
+                        </>
+                    }
+                />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
