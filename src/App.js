@@ -1,31 +1,9 @@
 import "./App.css";
-import { useEffect, useMemo, useState } from "react";
-import { Route, Routes, useParams, Link } from "react-router-dom";
-import SearchBox from "./SearchBox";
-import PokemonList from "./PokemonList";
+import { Route, Routes } from "react-router-dom";
 import Pokemon from "./Pokemon";
+import HomePage from "./HomePage";
 
 function App() {
-    const [pokemon, setPokemon] = useState([]);
-    const [search, setSearch] = useState("");
-
-    useEffect(() => {
-        fetch("./pokemon.json")
-            .then((res) => res.json())
-            .then((data) => setPokemon(data));
-    }, []);
-
-    const filterPokemon = useMemo(
-        () =>
-            [...pokemon]
-                .filter((p) =>
-                    p.name.toLowerCase().includes(search.toLowerCase())
-                )
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .slice(0, 10),
-        [search, pokemon]
-    );
-
     return (
         <div className="App">
             <Routes>
@@ -33,19 +11,11 @@ function App() {
                     path="/"
                     element={
                         <>
-                            <h1>Pokemon</h1>
-                            <SearchBox
-                                search={search}
-                                onChangeHandle={setSearch}
-                            />
-                            <PokemonList pokemon={filterPokemon} />
+                            <HomePage />
                         </>
                     }
                 />
-                <Route
-                    path="pokemon/:id"
-                    element={<Pokemon pokemon={pokemon} />}
-                />
+                <Route path="pokemon/:id" element={<Pokemon />} />
                 <Route
                     path="*"
                     element={

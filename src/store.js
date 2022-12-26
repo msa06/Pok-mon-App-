@@ -20,17 +20,19 @@ export function usePokemonSource() {
                 .slice(0, 10),
         [search, pokemon]
     );
-    return filterPokemon;
+    return { pokemon: filterPokemon, search, setSearch };
 }
 
-const PokemonContext = createContext({ pokemon: [] });
+const PokemonContext = createContext();
 
 export const usePokemon = () => {
     return useContext(PokemonContext);
 };
 
 export function PokemonProvider({ children }) {
-    <PokemonContext.Provider value={usePokemonSource()}>
-        {children}
-    </PokemonContext.Provider>;
+    return (
+        <PokemonContext.Provider value={usePokemonSource()}>
+            {children}
+        </PokemonContext.Provider>
+    );
 }

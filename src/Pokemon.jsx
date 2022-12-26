@@ -1,7 +1,9 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { usePokemon } from "./store";
 
-const Pokemon = ({ pokemon }) => {
+const Pokemon = () => {
+    const { pokemon } = usePokemon();
     const { id } = useParams();
     const pokemonData = pokemon.find((p) => p.id === +id);
 

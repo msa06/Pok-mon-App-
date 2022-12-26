@@ -1,12 +1,14 @@
 import React from "react";
+import { usePokemon } from "./store";
 
-const SearchBox = ({ search, onChangeHandle }) => {
+const SearchBox = () => {
+    const { search, setSearch } = usePokemon();
     return (
         <input
             className="searchbox"
             placeholder="Search"
             value={search}
-            onChange={(event) => onChangeHandle(event.target.value)}
+            onChange={(event) => setSearch(event.target.value)}
         />
     );
 };

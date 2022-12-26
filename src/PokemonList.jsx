@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { usePokemon } from "./store";
 
-const PokemonList = ({ pokemon }) => {
+const PokemonList = () => {
+    const { pokemon } = usePokemon();
     return (
         <>
             <ul className="pokemonlist">
