@@ -24,24 +24,26 @@ const Pokemon = () => {
                     <h3 className="pokemon-title">
                         Name: {pokemonData["name"]}
                     </h3>
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Type: {pokemonData["type"]}
                     </p>
-                    <p class="pokemon-description">Hp: {pokemonData["hp"]}</p>
+                    <p className="pokemon-description">
+                        Hp: {pokemonData["hp"]}
+                    </p>
 
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Attack: {pokemonData["attack"]}
                     </p>
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Defense: {pokemonData["defense"]}
                     </p>
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Special Attack: {pokemonData["special_attack"]}
                     </p>
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Special Defense: {pokemonData["special_defense"]}
                     </p>
-                    <p class="pokemon-description">
+                    <p className="pokemon-description">
                         Speed: {pokemonData["speed"]}
                     </p>
                 </div>
